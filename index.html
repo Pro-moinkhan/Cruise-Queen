@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- script.js -->
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+    <main id="beforePurchasing">
+        <!--Header and Menu Section-->
+        <header class="container">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a class="active" href="#">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!--Booking Section-->
+        <div class="main-content container">
+
+            <div class="booking-content">
+                <h1>Cruise Queen</h1>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and
+                    scrambled it to make a type specimen book.</p>
+            </div>
+
+
+            <div class="booking-form">
+                <h3 id="text_book">Book Ocean Time</h3>
+                <hr>
+                <div class="input-group">
+                    <label for="">Flying From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+                </div>
+                <div class="input-group">
+                    <label for="">Flying To</label>
+                    <input class="inp-style" type="text" name="" placeholder="Bali, Indonesia">
+                </div>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label" for="">Departure</label>
+                            <input class="inp-style" type="date" name="">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Return</label>
+                        <input class="inp-style" type="date" name="">
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class ($150)</label>
+                        <input id="first_input" class="inp-style inp-width" type="number" value="0" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button onclick="handlePriceChange('first', false)" id="first_minus" type="button"
+                            class="btn btn-danger"> -
+                        </button>
+                        <button onclick="handlePriceChange('first', true)" type="button" class="btn btn-danger"> +
+                        </button>
+                    </div>
+                    <div>
+                        <span>$
+                            <span id="firstClsTotal"> 0 </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="economy_input" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button onclick="handlePriceChange('economy', false)" id="economy_minus" type="button"
+                            class="btn btn-danger">
+                            - </button>
+                        <button onclick="handlePriceChange('economy', true)" id="economy_plus" type="button"
+                            class="btn btn-danger"> +
+                        </button>
+                    </div>
+                    <div>
+                        <span>$
+                            <span id="economyClsTotal"> 0 </span>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="calculations">
+                    <div class="amount">
+                        <div class="left">
+                            <p>Subtotal</p>
+                        </div>
+                        <div class="right">
+                            <p>$ <span id="subtotal">0</span> </p>
+                        </div>
+                    </div>
+
+                    <div class="amount">
+                        <div class="left">
+                            <p>Charge 10% VAT</p>
+                        </div>
+                        <div class="right">
+                            <p>$ <span id="tax">0</span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="amount">
+                        <div class="left">
+                            <h4>Total</h4>
+                        </div>
+                        <div class="right">
+                            <p>$ <span id="total">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                <button id="bookNow" class="btn-style">Book Now</button>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- thanks note -->
+    <section id="afterPurchasing" class="afterPurchase container">
+        <div class="thanksNOte">
+            <h1 id="tnkH1">Thanks For Purchasing!</h1>
+            <br>
+            <h2 class="tnkH2">😇Wishing You🌊</h2>
+            <h2 class="tnkH2">--- A Happy Journey ---</h2>
+            <button id="btn3">⬅ Back</button>
+        </div>
+    </section>
+
+    <script>
+
+        function handlePriceChange(ticket, isIncrease) {
+            const gettingValues = document.getElementById(ticket + '_input').value;
+            const parseFloatValues = parseFloat(gettingValues);
+            let value = parseFloatValues;
+            if (isIncrease == true) {
+                value = parseFloatValues + 1;
+            }
+            else if (isIncrease == false && value > 0) {
+                value = parseFloatValues - 1;
+            }
+            document.getElementById(ticket + '_input').value = value;
+            let AllClsTotal = document.getElementById(ticket + 'ClsTotal').innerText;
+            // const calculateAllClsTotal = value * 150;
+            let calculateAllClsTotal = 0;
+            if (ticket == 'first') {
+                calculateAllClsTotal = value * 150;
+            }
+            else if (ticket == 'economy') {
+                calculateAllClsTotal = value * 100;
+            }
+            document.getElementById(ticket + 'ClsTotal').innerText = calculateAllClsTotal;
+            calculateSubTotal();
+        };
+        /** sorry can't make a smaller function cause, after making a small function I can't understand my own code. -_- + :( */
+        function calculateSubTotal() {
+            const firstClassTotal = document.getElementById('firstClsTotal');
+            const firstClassTotalFloat = parseFloat(firstClassTotal.innerText);
+
+            const economyClassTotal = document.getElementById('economyClsTotal');
+            const economyClassTotalFloat = parseFloat(economyClassTotal.innerText);
+
+            const subtotal = firstClassTotalFloat + economyClassTotalFloat;
+            document.getElementById('subtotal').innerText = subtotal;
+
+            const taxCalculate = subtotal * 0.1;
+            const tax = taxCalculate;
+            document.getElementById('tax').innerText = tax;
+
+            const GrandTotal = subtotal + tax;
+            document.getElementById('total').innerText = GrandTotal;
+        }
+
+        // display block for thanking note:
+        document.getElementById('bookNow').addEventListener('click', function () {
+            const displayOff = document.getElementById('beforePurchasing');
+            displayOff.style.display = 'none';
+            const displayOn = document.getElementById('afterPurchasing');
+            displayOn.style.display = 'block';
+        })
+        document.getElementById('btn3').addEventListener('click', function () {
+            const displayOn = document.getElementById('afterPurchasing');
+            displayOn.style.display = 'none';
+            const displayOff = document.getElementById('beforePurchasing');
+            displayOff.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
